@@ -1,4 +1,5 @@
 using System.Reflection;
+using System.Linq;
 namespace jsonMap{
 
     class JsonMap {
@@ -43,7 +44,12 @@ namespace jsonMap{
                 }
                 else if (varTypeName == "int32[]")
                 {
-                    attr.SetValue(resultInstance, (Int32[])value);
+                    // Console.WriteLine(string.Join(",",value)+ value.GetType());
+                    object[]temp = (object[])value;
+                    // attr.SetValue(resultInstance, value);
+                    foreach(object ob in temp){
+                        Console.WriteLine(ob);
+                    }
                 }
                 else if (varTypeName == "int"|| varTypeName == "int32")
                 {
@@ -77,6 +83,7 @@ namespace jsonMap{
                 object value = ReadValue(json);
                 attributes.Add(key, value);
             }
+            idx++; //skipping -> }
             return attributes;
         }
         private string ReadKey(string json)
@@ -119,7 +126,6 @@ namespace jsonMap{
             {
                 Dictionary<string, object> buffer = new Dictionary<string, object>();
                 buffer = JsonParse(json);
-                idx++;
                 return (object)buffer;
             }
 
@@ -169,11 +175,12 @@ namespace jsonMap{
             {
                 if (json[idx] != ',')
                 {
-                    int inte;
-                    int.TryParse(json[idx].ToString(), out inte);
-                    res.Add(inte);
+                    object insideVal = ReadValue(json);
+                    res.Add(insideVal);
+                }else{
+                    idx++;
                 }
-                idx++;
+                
             }
             idx++; //skipping ]
             return new object[]{0};
