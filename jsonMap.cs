@@ -131,7 +131,7 @@ namespace jsonMap{
             }
             else if (json[idx] == '[')
             {
-                int[] buffer = ParseArray(json);
+                object[] buffer = ParseArray(json);
                 return (object)buffer;
             }
             else
@@ -154,17 +154,17 @@ namespace jsonMap{
             int.TryParse(buffer, out res);
             return res;
         }
-        private int[] ParseArray(string json)
+        private object[] ParseArray(string json)
         {
             // parses array from with in [ -> ]
             
             if (json[idx] != '[')
             {
                 Console.WriteLine("invalid start of an array ");
-                return new int[] { 0 };
+                return new object[] { 0 };
             }
             idx++;
-            List<int> res = new List<int>();
+            List<object> res = new List<object>();
             while (json[idx] != ']' && idx < json.Length)
             {
                 if (json[idx] != ',')
@@ -176,7 +176,7 @@ namespace jsonMap{
                 idx++;
             }
             idx++; //skipping ]
-            return res.ToArray();
+            return new object[]{0};
         }
         private string ParseString(string json)
         {
