@@ -1,0 +1,14 @@
+/home/abhijithsj/Desktop/Active/jsonMap/bin/Debug/net8.0/jsonMap
+/home/abhijithsj/Desktop/Active/jsonMap/bin/Debug/net8.0/jsonMap.deps.json
+/home/abhijithsj/Desktop/Active/jsonMap/bin/Debug/net8.0/jsonMap.runtimeconfig.json
+/home/abhijithsj/Desktop/Active/jsonMap/bin/Debug/net8.0/jsonMap.dll
+/home/abhijithsj/Desktop/Active/jsonMap/bin/Debug/net8.0/jsonMap.pdb
+/home/abhijithsj/Desktop/Active/jsonMap/obj/Debug/net8.0/jsonMap.GeneratedMSBuildEditorConfig.editorconfig
+/home/abhijithsj/Desktop/Active/jsonMap/obj/Debug/net8.0/jsonMap.AssemblyInfoInputs.cache
+/home/abhijithsj/Desktop/Active/jsonMap/obj/Debug/net8.0/jsonMap.AssemblyInfo.cs
+/home/abhijithsj/Desktop/Active/jsonMap/obj/Debug/net8.0/jsonMap.csproj.CoreCompileInputs.cache
+/home/abhijithsj/Desktop/Active/jsonMap/obj/Debug/net8.0/jsonMap.dll
+/home/abhijithsj/Desktop/Active/jsonMap/obj/Debug/net8.0/refint/jsonMap.dll
+/home/abhijithsj/Desktop/Active/jsonMap/obj/Debug/net8.0/jsonMap.pdb
+/home/abhijithsj/Desktop/Active/jsonMap/obj/Debug/net8.0/jsonMap.genruntimeconfig.cache
+/home/abhijithsj/Desktop/Active/jsonMap/obj/Debug/net8.0/ref/jsonMap.dll
