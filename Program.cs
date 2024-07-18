@@ -17,7 +17,7 @@ namespace jsonMap
             // Test temper = JsonMap.jsonMap<Test>(jsonTest);
             // Console.WriteLine(temper.numericDetails.age);
             JsonMap jMap = new();
-            Test test = jMap.jsonMap<Test>(jsonTest);
+            Test test = jMap.Extract<Test>(jsonTest);
             Console.WriteLine(test.numericDetails.rollNo);
         }
     }
