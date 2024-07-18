@@ -3,7 +3,7 @@ namespace jsonMap{
 
     class JsonMap {
         private int idx = 0;
-        public T jsonMap<T>(string jsonString) where T : new()
+        public T Extract<T>(string jsonString) where T : new()
         {
             /*
                 returns a class that is poppulated with contents from json String
@@ -73,20 +73,20 @@ namespace jsonMap{
 
             while (json[idx] != '}' && idx < json.Length)
             {
-                string key = readKey(json);
-                object value = readValue(json);
+                string key = ReadKey(json);
+                object value = ReadValue(json);
                 attributes.Add(key, value);
             }
             return attributes;
         }
-        private string readKey(string json)
+        private string ReadKey(string json)
         {
             /*
                 reads and return the attribute name or key 
             */
 
             string buffer = "";
-            skipWhitespaces(json);
+            SkipWhitespaces(json);
             if (json[idx] == ',')
             {
                 idx++;
@@ -105,15 +105,15 @@ namespace jsonMap{
                 idx++;
             }
             idx++; //skipping -> " in json
-            skipWhitespaces(json);
+            SkipWhitespaces(json);
             idx++; //skiping -> :
             return buffer;
         }
-        private object readValue(string json)
+        private object ReadValue(string json)
         {
             /*Read attribute value from json string and returns*/
             
-            skipWhitespaces(json);
+            SkipWhitespaces(json);
 
             if (json[idx] == '{')
             {
@@ -126,22 +126,22 @@ namespace jsonMap{
             if (json[idx] == '\"')
             {
                 string buffer = "";
-                buffer = parseString(json);
+                buffer = ParseString(json);
                 return (object)buffer;
             }
             else if (json[idx] == '[')
             {
-                int[] buffer = parseArray(json);
+                int[] buffer = ParseArray(json);
                 return (object)buffer;
             }
             else
             {
-                int buffer = parseInt(json);
+                int buffer = ParseInt(json);
                 return (object)buffer;
             }
 
         }
-        private int parseInt(string json)
+        private int ParseInt(string json)
         {
             /*reads integer that is in string format and returns*/
             string buffer = "";
@@ -154,7 +154,7 @@ namespace jsonMap{
             int.TryParse(buffer, out res);
             return res;
         }
-        private int[] parseArray(string json)
+        private int[] ParseArray(string json)
         {
             // parses array from with in [ -> ]
             
@@ -178,7 +178,7 @@ namespace jsonMap{
             idx++; //skipping ]
             return res.ToArray();
         }
-        private string parseString(string json)
+        private string ParseString(string json)
         {
             //parses string in json with in " -> "
             string buffer = "";
@@ -197,7 +197,7 @@ namespace jsonMap{
             return buffer;
 
         }
-        private void skipWhitespaces(string json)
+        private void SkipWhitespaces(string json)
         {
             //skips white spaces
             while (json[idx] == ' ' && json.Length > idx)
