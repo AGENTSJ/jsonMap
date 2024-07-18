@@ -12,3 +12,4 @@
 /home/abhijithsj/Desktop/Active/jsonMap/obj/Debug/net8.0/jsonMap.pdb
 /home/abhijithsj/Desktop/Active/jsonMap/obj/Debug/net8.0/jsonMap.genruntimeconfig.cache
 /home/abhijithsj/Desktop/Active/jsonMap/obj/Debug/net8.0/ref/jsonMap.dll
+/home/abhijithsj/Desktop/Active/jsonMap/obj/Debug/net8.0/jsonMap.sourcelink.json

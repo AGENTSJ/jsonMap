@@ -2,7 +2,7 @@ using System.Reflection;
 namespace jsonMap{
 
     class JsonMap {
-        static int idx = 0;
+        private int idx = 0;
         public T jsonMap<T>(string jsonString) where T : new()
         {
             /*
@@ -197,7 +197,7 @@ namespace jsonMap{
             return buffer;
 
         }
-        static void skipWhitespaces(string json)
+        private void skipWhitespaces(string json)
         {
             //skips white spaces
             while (json[idx] == ' ' && json.Length > idx)
