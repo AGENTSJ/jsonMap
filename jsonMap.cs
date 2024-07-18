@@ -3,7 +3,7 @@ namespace jsonMap{
 
     class JsonMap {
         static int idx = 0;
-        public static T jsonMap<T>(string jsonString) where T : new()
+        public T jsonMap<T>(string jsonString) where T : new()
         {
             /*
                 returns a class that is poppulated with contents from json String
@@ -15,7 +15,7 @@ namespace jsonMap{
             Maper(result, contentMap);//maper
             return result;
         } 
-        static void Maper(object? resultInstance, Dictionary<string, object> contentMap)
+        private void Maper(object? resultInstance, Dictionary<string, object> contentMap)
         {
             /*
                 Maps fields or attributes of a given instance to their corresponding value that is returned from jsonParser
@@ -36,7 +36,7 @@ namespace jsonMap{
                 varTypeName = attr.FieldType.Name.ToLower();
                 varName = attr.Name;
                 value = contentMap[varName];
-   
+                
                 if (varTypeName == "string")
                 {
                     attr.SetValue(resultInstance, (string)value);
@@ -58,7 +58,7 @@ namespace jsonMap{
             }
             return;
         }
-        static Dictionary<string, object> JsonParse(string json)
+        private Dictionary<string, object> JsonParse(string json)
         {
             /*Parses a json string and creates a hashmap that contain attribute Name -> attribute value*/
 
@@ -79,7 +79,7 @@ namespace jsonMap{
             }
             return attributes;
         }
-        static string readKey(string json)
+        private string readKey(string json)
         {
             /*
                 reads and return the attribute name or key 
@@ -109,7 +109,7 @@ namespace jsonMap{
             idx++; //skiping -> :
             return buffer;
         }
-        static object readValue(string json)
+        private object readValue(string json)
         {
             /*Read attribute value from json string and returns*/
             
@@ -141,7 +141,7 @@ namespace jsonMap{
             }
 
         }
-        static int parseInt(string json)
+        private int parseInt(string json)
         {
             /*reads integer that is in string format and returns*/
             string buffer = "";
@@ -154,7 +154,7 @@ namespace jsonMap{
             int.TryParse(buffer, out res);
             return res;
         }
-        static int[] parseArray(string json)
+        private int[] parseArray(string json)
         {
             // parses array from with in [ -> ]
             
@@ -178,7 +178,7 @@ namespace jsonMap{
             idx++; //skipping ]
             return res.ToArray();
         }
-        static string parseString(string json)
+        private string parseString(string json)
         {
             //parses string in json with in " -> "
             string buffer = "";

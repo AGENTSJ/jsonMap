@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("jsonMap")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+37abe1bc33952c98d27b1ebf054afcb7f6825a3d")]
 [assembly: System.Reflection.AssemblyProductAttribute("jsonMap")]
 [assembly: System.Reflection.AssemblyTitleAttribute("jsonMap")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
