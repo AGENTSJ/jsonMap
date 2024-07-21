@@ -1,15 +1,33 @@
 using System.Reflection;
 using System.Collections;
+
 namespace jsonMap
 {
+    /*
+        A Library that can map values of a json string to attributes of a class 
+
+        Entry point Extract()
+        
+        Note : nested classes should be initilzed with new()
+            
+            class ExampleClass {
+                innerClass test2 = new innerClass();
+            }
+        
+    */
 
     class JsonMap
     {
         private int idx = 0;
 
-        /* returns a class that is poppulated with contents from json String */
+        /* 
+            Returns a instance of the class that user want to get poppulated with the contents of json string
+            JsonMap jMap = new JsonMap()
+            ExampleClass exmp = jMap.Extract<ExampleClass>(jsonString);
+        */
         public T Extract<T>(string jsonString) where T : new()
         {
+            this.idx = 0;
             T result = new T();
             Dictionary<string, object> contentMap;
 
@@ -18,7 +36,44 @@ namespace jsonMap
             return result;
         }
         
-        /* Maps fields or attributes of a input instance to their corresponding value that is returned from jsonParser */
+        /*
+
+            Returns a Dictionary 
+            Dictinoary contains keys and and values extracted from the json string
+
+            Note : nested json (equivalent to nested classes) are treated as another json and handled by ReadValue()
+            and stored as a dictionary 
+
+        */
+
+        private Dictionary<string, object> JsonParse(string json)
+        {
+            Dictionary<string, object> attributes = new Dictionary<string, object>();
+
+            if (json[idx] != '{')
+            {
+                Console.WriteLine("error invalid start of an json");
+                return attributes;
+            }
+            idx++;
+
+            while (json[idx] != '}' && idx < json.Length)
+            {
+                string key = ReadKey(json);
+                object value = ReadValue(json);
+                attributes.Add(key, value);
+            }
+            idx++; //skipping -> }
+            return attributes;
+        }
+        
+        /* 
+
+            Input  : 1 instance of the class that need to be poppulated ,  
+                     2 Dictionary of Name of attribute to Value object
+            Output : poppulated class instance
+
+        */
         private void Maper(object? resultInstance, Dictionary<string, object> contentMap)
         {
            
@@ -61,7 +116,6 @@ namespace jsonMap
                     var listType = typeof(List<>).MakeGenericType(arrayElementType);
                     var list = (IList)Activator.CreateInstance(listType);
 
-                    // Console.WriteLine(arrayElementType);
                     foreach (object ob in temp)
                     {
                         if (!ob.GetType().Name.ToLower().Contains("dictionary"))
@@ -80,10 +134,6 @@ namespace jsonMap
                         attr.SetValue(resultInstance, toArrayMethod.Invoke(list, null));
                         
                     }
-                    
-
-                    
-
                 }
 
                 else if (varTypeName == INT || varTypeName == "int")
@@ -99,31 +149,12 @@ namespace jsonMap
             }
             return;
         }
-       
-        /*Parses a json string and creates a hashmap that contain attribute Name -> attribute value*/
-        private Dictionary<string, object> JsonParse(string json)
-        {
-
-            Dictionary<string, object> attributes = new Dictionary<string, object>();
-
-            if (json[idx] != '{')
-            {
-                Console.WriteLine("error invalid start");
-                return attributes;
-            }
-            idx++;
-
-            while (json[idx] != '}' && idx < json.Length)
-            {
-                string key = ReadKey(json);
-                object value = ReadValue(json);
-                attributes.Add(key, value);
-            }
-            idx++; //skipping -> }
-            return attributes;
-        }
         
-        /* reads and return the attribute name or key */
+        /* 
+        
+            Reads and return the attribute Name or key
+        
+        */
         private string ReadKey(string json)
         {
             string buffer = "";
@@ -132,7 +163,7 @@ namespace jsonMap
             {
                 idx++;
             }
-
+            SkipWhitespaces(json);
             if (json[idx] != '\"')
             {
                 Console.WriteLine("invalid start of a key " + json[idx]);
@@ -151,7 +182,13 @@ namespace jsonMap
             return buffer;
         }
         
-        /*Read attribute value from json string and returns*/
+        /*
+        
+            Read attribute value from json string and returns the value 
+
+            Note : if the value is an another json (equvalent to another class instance it calls JsonParse()) 
+        
+        */
         private object ReadValue(string json)
         {
             SkipWhitespaces(json);
@@ -160,6 +197,7 @@ namespace jsonMap
             {
                 Dictionary<string, object> buffer = new Dictionary<string, object>();
                 buffer = JsonParse(json);
+                SkipWhitespaces(json);
                 return (object)buffer;
             }
 
@@ -167,22 +205,29 @@ namespace jsonMap
             {
                 string buffer = "";
                 buffer = ParseString(json);
+                SkipWhitespaces(json);
                 return (object)buffer;
             }
             else if (json[idx] == '[')
             {
                 object[] buffer = ParseArray(json);
+                SkipWhitespaces(json);
                 return (object)buffer;
             }
             else
             {
                 int buffer = ParseInt(json);
+                SkipWhitespaces(json);
                 return (object)buffer;
             }
 
         }
         
-        /*reads integer that is in string format and returns*/
+        /*
+        
+            Reads integer that is in string format and returns
+        
+        */
         private int ParseInt(string json)
         {
             string buffer = "";
@@ -196,7 +241,11 @@ namespace jsonMap
             return res;
         }
         
-        // parses array from with in [ -> ]
+        /*
+        
+            Parses array from with in [ -> ]
+        
+        */
         private object[] ParseArray(string json)
         {
             if (json[idx] != '[')
@@ -223,7 +272,11 @@ namespace jsonMap
             return res.ToArray();
         }
         
-        //parses string in json with in " -> "
+        /*
+          
+            Parses string in json with in " -> "
+        
+        */
         private string ParseString(string json)
         {
             string buffer = "";
@@ -243,10 +296,14 @@ namespace jsonMap
 
         }
         
-        //skips white spaces
+        /* 
+          
+            Skips white spaces
+
+        */
         private void SkipWhitespaces(string json)
         {
-            while (json[idx] == ' ' && json.Length > idx)
+            while ((json[idx] == ' ' || json[idx] == '\n') && json.Length > idx)
             {
                 idx++;
             }

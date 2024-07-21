@@ -1,0 +1,16 @@
+{
+    "name": "Abhijith SJ",
+    "numericDetails" : {
+        "age": 21,
+        "rollNo": 2
+    },
+    "randomArr" : [
+        1,2,3,4
+    ],
+    "testarr" : [
+        {
+            "age" :18,
+            "rollNo":14
+        }
+    ]
+}
