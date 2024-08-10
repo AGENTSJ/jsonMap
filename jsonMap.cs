@@ -303,7 +303,7 @@ namespace jsonMap
         */
         private void SkipWhitespaces(string json)
         {
-            while ((json[idx] == ' ' || json[idx] == '\n') && json.Length > idx)
+            while ((json[idx] == ' ' || json[idx] == '\n' || json[idx] == '\t') && json.Length > idx)
             {
                 idx++;
             }
